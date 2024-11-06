@@ -7,7 +7,20 @@ import java.util.List;
 import java.util.Optional;
 
 public class DBHelper {
+    private static DBHelper instance;
     private static final String url = "jdbc:sqlite:tasks.db";
+
+    // Метод для получения единственного экземпляра DBHelper
+    public static DBHelper getInstance() throws SQLException {
+        if (instance == null) {
+            synchronized (DBHelper.class) {
+                if (instance == null) {
+                    instance = new DBHelper();
+                }
+            }
+        }
+        return instance;
+    }
 
     public DBHelper() throws SQLException {
         String createTasksTable = "CREATE TABLE IF NOT EXISTS tasks (" +
@@ -21,7 +34,6 @@ public class DBHelper {
         try(Connection connection = DriverManager.getConnection(url)) {
             Statement statement = connection.createStatement();
             statement.execute(createTasksTable);
-            System.out.println("Database is initialized");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,7 +55,6 @@ public class DBHelper {
             statement.execute();
             int id = statement.getGeneratedKeys().getInt(1);
             task.setId(id);
-            System.out.println("Task with id " + id + " added successfully");
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -93,7 +104,7 @@ public class DBHelper {
                 LocalDate dueDate = LocalDate.parse(resultSet.getString("dueDate"));
                 String priority = resultSet.getString("priority");
 
-                Task task = new Task(title, description, dueDate.getYear(), dueDate.getMonthValue(), dueDate.getDayOfMonth(), priority);
+                Task task = new Task(title, description, dueDate, priority);
                 task.setId(id);
                 return task;
             }
@@ -118,9 +129,10 @@ public class DBHelper {
                 String priority = resultSet.getString("priority");
 
 
-                Task task = new Task(title, description, dueDate.getYear(), dueDate.getMonthValue(), dueDate.getDayOfMonth(), priority);
+                Task task = new Task(title, description, dueDate, priority);
                 task.setId(id);
                 tasks.add(task);
+                System.out.println(LocalDate.now().plusDays(1));
             }
         } catch(SQLException e) {
             e.printStackTrace();

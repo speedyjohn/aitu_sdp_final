@@ -16,11 +16,11 @@ public class Task {
     private LocalDate dueDate;
     private String priority;
 
-    public Task(String name, String description, int year, int month, int day, String priority) {
+    public Task(String name, String description, LocalDate dueDate, String priority) {
         this.id = -1;
         this.name = name;
         this.description = description;
-        this.dueDate = LocalDate.of(year, month, day);
+        this.dueDate = dueDate;
         this.priority = priority;
     }
 }
