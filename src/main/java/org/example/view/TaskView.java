@@ -1,5 +1,6 @@
 package org.example.view;
 
+import org.example.decorator.*;
 import org.example.model.DBHelper;
 import org.example.model.Task;
 
@@ -14,7 +15,32 @@ public class TaskView {
     }
 
     public static void displayTask(Task task) {
-        System.out.println("Task with id " + task.getId() + ":\n" + task);
+        TaskDisplay simpleDisplay = new SimpleTaskDisplay(task);
+        simpleDisplay.display();
+    }
+
+    public static void displayTaskAndTitle(Task task) {
+        TaskDisplay simpleDisplay = new SimpleTaskDisplay(task);
+        TaskDisplay display = new TitleTaskDisplayDecorator(simpleDisplay, task);
+        display.display();
+    }
+
+    public static void displayTaskAndDescription(Task task) {
+        TaskDisplay simpleDisplay = new SimpleTaskDisplay(task);
+        TaskDisplay display = new DescriptionTaskDisplayDecorator(simpleDisplay, task);
+        display.display();
+    }
+
+    public static void displayTaskAndDate(Task task) {
+        TaskDisplay simpleDisplay = new SimpleTaskDisplay(task);
+        TaskDisplay display = new DateTaskDisplayDecorator(simpleDisplay, task);
+        display.display();
+    }
+
+    public static void displayTaskAndPriority(Task task) {
+        TaskDisplay simpleDisplay = new SimpleTaskDisplay(task);
+        TaskDisplay display = new PriorityTaskDisplayDecorator(simpleDisplay, task);
+        display.display();
     }
 
     public static void displayNull() {

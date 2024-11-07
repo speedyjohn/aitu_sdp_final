@@ -44,9 +44,28 @@ public class TaskController {
         TaskView.displayDeleted(deletedTask);
     }
 
-    public void getById(int id) {
+    public void getById(int id, int display) {
         Task task = TaskService.getTask(id);
-        TaskView.displayTask(task);
+        switch (display) {
+            case 1:
+                TaskView.displayTask(task);
+                break;
+            case 2:
+                TaskView.displayTaskAndTitle(task);
+                break;
+            case 3:
+                TaskView.displayTaskAndDescription(task);
+                break;
+            case 4:
+                TaskView.displayTaskAndDate(task);
+                break;
+            case 5:
+                TaskView.displayTaskAndPriority(task);
+                break;
+            default:
+                TaskView.displayTask(task);
+                break;
+        }
     }
 
     public void getAll(SortStrategy sort) {

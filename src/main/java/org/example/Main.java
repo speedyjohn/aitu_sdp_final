@@ -1,5 +1,6 @@
 package org.example;
 
+import com.sun.tools.jconsole.JConsoleContext;
 import org.example.sort.SortByNameDescStrategy;
 import org.example.sort.SortStrategy;
 import org.example.controller.TaskController;
@@ -12,11 +13,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws SQLException {
         TaskController controller = new TaskController();
-        List<Task> tasks = TaskService.getAllTasks();
-        SortStrategy sort = new SortByNameDescStrategy();
-        List<Task> sortedTasks =  sort.sort(tasks);
-        for (Task task : sortedTasks) {
-            System.out.println(task);
-        }
+        controller.getById(1, 1);
     }
 }
