@@ -8,55 +8,48 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class TaskController {
-    private TaskService taskService;
-    private TaskView taskView;
-
-    public TaskController() throws SQLException {
-        this.taskService = new TaskService();
-        this.taskView = new TaskView();
-    }
 
     public void create(int option, String title, String description, String dueDate, String priority, int days) {
         switch (option) {
             case 1:
-                Task task = taskService.createTask(title, description, dueDate, priority);
-                taskView.displayCreated(task);
+                Task task = TaskService.createTask(title, description, dueDate, priority);
+                TaskView.displayCreated(task);
                 break;
             case 2:
-                Task taskToday = taskService.createTaskToday(title, description, priority);
-                taskView.displayCreated(taskToday);
+                Task taskToday = TaskService.createTaskToday(title, description, priority);
+                TaskView.displayCreated(taskToday);
                 break;
             case 3:
-                Task taskTomorrow = taskService.createTaskTomorrow(title, description, priority);
-                taskView.displayCreated(taskTomorrow);
+                Task taskTomorrow = TaskService.createTaskTomorrow(title, description, priority);
+                TaskView.displayCreated(taskTomorrow);
                 break;
             case 4:
-                Task taskCustom = taskService.createTaskCustom(title, description, priority, days);
-                taskView.displayCreated(taskCustom);
+                Task taskCustom = TaskService.createTaskCustom(title, description, priority, days);
+                TaskView.displayCreated(taskCustom);
                 break;
             default:
-                taskView.error();
+                TaskView.error();
                 break;
         }
     }
 
     public void update(Task task, int id) {
-        Task updatedTask = taskService.updateTask(task, id);
-        taskView.displayUpdated(updatedTask);
+        Task updatedTask = TaskService.updateTask(task, id);
+        TaskView.displayUpdated(updatedTask);
     }
 
     public void delete(int id) {
-        Task deletedTask = taskService.deleteTask(id);
-        taskView.displayDeleted(deletedTask);
+        Task deletedTask = TaskService.deleteTask(id);
+        TaskView.displayDeleted(deletedTask);
     }
 
     public void getById(int id) {
-        Task task = taskService.getTask(id);
-        taskView.displayTask(task);
+        Task task = TaskService.getTask(id);
+        TaskView.displayTask(task);
     }
 
     public void getAll() {
-        List<Task> tasks = taskService.getAllTasks();
-        taskView.displayTasks(tasks);
+        List<Task> tasks = TaskService.getAllTasks();
+        TaskView.displayTasks(tasks);
     }
 }
