@@ -3,12 +3,15 @@ package org.example.service;
 import org.example.model.DBHelper;
 import org.example.model.Task;
 import org.example.model.TaskFactory;
-import org.sqlite.core.DB;
+import org.example.notification.Observable;
+import org.example.notification.Observer;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class TaskService {
+public class TaskService implements Observable {
+    private List<Observer> observers = new ArrayList<>();
     private static DBHelper dbHelper;
     private static TaskFactory taskFactory;
 
@@ -21,35 +24,57 @@ public class TaskService {
         }
     }
 
-    public static Task createTask(String title, String description, String dueDate, String priority) {
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(String message) {
+        for (Observer observer : observers) {
+            observer.update(message);
+        }
+    }
+
+    public Task createTask(String title, String description, String dueDate, String priority) {
         return taskFactory.createTask(title, description, dueDate, priority);
     }
 
-    public static Task createTaskToday(String title, String description, String dueDate) {
+    public Task createTaskToday(String title, String description, String dueDate) {
         return taskFactory.createTaskToday(title, description, dueDate);
     }
 
-    public static Task createTaskTomorrow(String title, String description, String dueDate) {
+    public Task createTaskTomorrow(String title, String description, String dueDate) {
         return taskFactory.createTaskTomorrow(title, description, dueDate);
     }
 
-    public static Task createTaskCustom(String title, String description, String dueDate, int days) {
+    public Task createTaskCustom(String title, String description, String dueDate, int days) {
         return taskFactory.createTaskCustom(title, description, dueDate, days);
     }
 
-    public static Task updateTask(Task task, int id) {
-        return dbHelper.updateTask(task, id);
+    public Task updateTask(Task task, int id) {
+        String GREEN = "\u001B[32m";
+        String RESET = "\u001B[0m";
+        Task newTask = dbHelper.updateTask(task, id);
+        notifyObservers(GREEN + "Task with id " + newTask.getId() + " is updated" + RESET);
+        return newTask;
     }
 
-    public static Task deleteTask(int id) {
+    public Task deleteTask(int id) {
         return dbHelper.deleteTask(id);
     }
 
-    public static Task getTask(int id) {
+    public Task getTask(int id) {
         return dbHelper.getTask(id);
     }
 
-    public static List<Task> getAllTasks() {
+    public List<Task> getAllTasks() {
         return dbHelper.getAllTasks();
     }
+
 }
