@@ -2,7 +2,10 @@ package org.example.model;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-
+// Class for creating new objects
+// Implements Factory Patter
+// Gives opportunities to different creation scenarios
+// Also gives opportunities to validate data
 public class TaskFactory {
     private static DBHelper dbHelper;
 

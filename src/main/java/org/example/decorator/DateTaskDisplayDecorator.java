@@ -1,7 +1,7 @@
 package org.example.decorator;
 
 import org.example.model.Task;
-
+// Extra line with green Date
 public class DateTaskDisplayDecorator extends TaskDisplayDecorator {
     private Task task;
     // ANSI escape codes

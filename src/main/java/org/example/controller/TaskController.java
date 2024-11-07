@@ -7,7 +7,9 @@ import org.example.view.TaskView;
 import org.example.model.Task;
 
 import java.util.List;
-
+// Controller class
+// Used like a bridge between view and model
+// Implements Facade Pattern
 public class TaskController {
     private TaskService taskService;
 

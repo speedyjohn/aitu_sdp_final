@@ -1,7 +1,7 @@
 package org.example.decorator;
 
 import org.example.model.Task;
-
+// No extra lines
 public class SimpleTaskDisplay implements TaskDisplay {
     private Task task;
 

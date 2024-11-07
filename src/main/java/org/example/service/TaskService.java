@@ -9,7 +9,8 @@ import org.example.notification.Observer;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+// An additional abstraction layer
+// Just makes our life easily
 public class TaskService implements Observable {
     private List<Observer> observers = new ArrayList<>();
     private static DBHelper dbHelper;

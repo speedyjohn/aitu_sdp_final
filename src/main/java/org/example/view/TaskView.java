@@ -6,7 +6,8 @@ import org.example.model.Task;
 
 import java.sql.SQLException;
 import java.util.List;
-
+// Class for view
+// This class allows us to do some output or show UI
 public class TaskView {
     public static void displayTasks(List<Task> tasks) {
         for (Task task : tasks) {

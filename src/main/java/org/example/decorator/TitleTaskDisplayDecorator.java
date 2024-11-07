@@ -1,10 +1,9 @@
 package org.example.decorator;
 
 import org.example.model.Task;
-
+// Extra line with green Title
 public class TitleTaskDisplayDecorator extends TaskDisplayDecorator {
     private Task task;
-    // ANSI escape codes
     private static final String GREEN = "\u001B[32m";
     private static final String RESET = "\u001B[0m";
 

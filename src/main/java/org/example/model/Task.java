@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
+// Task model
 @Getter
 @Setter
 @ToString
