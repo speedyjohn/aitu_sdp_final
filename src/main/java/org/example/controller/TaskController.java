@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.service.TaskService;
+import org.example.sort.SortStrategy;
 import org.example.view.TaskView;
 import org.example.model.Task;
 
@@ -48,7 +49,7 @@ public class TaskController {
         TaskView.displayTask(task);
     }
 
-    public void getAll() {
+    public void getAll(SortStrategy sort) {
         List<Task> tasks = TaskService.getAllTasks();
         TaskView.displayTasks(tasks);
     }

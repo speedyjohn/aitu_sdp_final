@@ -1,4 +1,4 @@
-package org.example.Sort;
+package org.example.sort;
 
 import org.example.model.Task;
 

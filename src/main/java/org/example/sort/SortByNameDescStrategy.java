@@ -1,14 +1,14 @@
-package org.example.Sort;
+package org.example.sort;
 
 import org.example.model.Task;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class SortByPriorityDescStrategy implements SortStrategy {
+public class SortByNameDescStrategy implements SortStrategy {
     @Override
     public List<Task> sort(List<Task> tasks) {
-        tasks.sort(Comparator.comparing(Task::getPriority).reversed());
+        tasks.sort(Comparator.comparing(Task::getName).reversed());
         return tasks;
     }
 }

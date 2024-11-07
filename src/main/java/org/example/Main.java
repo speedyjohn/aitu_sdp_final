@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.Sort.SortByNameDescStrategy;
-import org.example.Sort.SortStrategy;
+import org.example.sort.SortByNameDescStrategy;
+import org.example.sort.SortStrategy;
 import org.example.controller.TaskController;
 import org.example.model.Task;
 import org.example.service.TaskService;
