@@ -10,7 +10,7 @@ public class TaskFactory {
         this.dbHelper = DBHelper.getInstance();
     }
     
-    public static void createTask(String title, String description, String dueDate, String priority) {
+    public static Task createTask(String title, String description, String dueDate, String priority) {
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be empty");
         }
@@ -25,10 +25,10 @@ public class TaskFactory {
         }
         Task task = new Task(title, description, LocalDate.parse(dueDate), priority);
         dbHelper.addTask(task);
-        System.out.println("New task created:\n" + task);
+        return task;
     }
 
-    public static void createTaskToday(String title, String description, String priority) {
+    public static Task createTaskToday(String title, String description, String priority) {
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be empty");
         }
@@ -40,10 +40,10 @@ public class TaskFactory {
         }
         Task task = new Task(title, description, LocalDate.now(), priority);
         dbHelper.addTask(task);
-        System.out.println("New task created:\n" + task);
+        return task;
     }
 
-    public static void createTaskTomorrow(String title, String description, String priority) {
+    public static Task createTaskTomorrow(String title, String description, String priority) {
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be empty");
         }
@@ -55,10 +55,10 @@ public class TaskFactory {
         }
         Task task = new Task(title, description, LocalDate.now().plusDays(1), priority);
         dbHelper.addTask(task);
-        System.out.println("New task created:\n" + task);
+        return task;
     }
 
-    public static void createTaskCustom(String title, String description, String priority, int days) {
+    public static Task createTaskCustom(String title, String description, String priority, int days) {
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be empty");
         }
@@ -70,6 +70,6 @@ public class TaskFactory {
         }
         Task task = new Task(title, description, LocalDate.now().plusDays(days), priority);
         dbHelper.addTask(task);
-        System.out.println("New task created:\n" + task);
+        return task;
     }
 }

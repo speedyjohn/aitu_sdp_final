@@ -4,7 +4,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class DBHelper {
     private static DBHelper instance;
@@ -60,7 +59,7 @@ public class DBHelper {
         }
     }
 
-    public void updateTask(Task task, int id) {
+    public Task updateTask(Task task, int id) {
         String sql = "UPDATE tasks SET title = ?, description = ?, dueDate = ?, priority = ? WHERE id = ?";
 
         try(Connection connection = getConnection()) {
@@ -71,23 +70,23 @@ public class DBHelper {
             statement.setString(4, task.getPriority());
             statement.setString(5, String.valueOf(id));
             statement.execute();
-            System.out.println("Task with id " + id + " updated successfully");
         } catch(SQLException e) {
             e.printStackTrace();
         }
+        return getTask(id);
     }
 
-    public void deleteTask(int id) {
+    public Task deleteTask(int id) {
         String sql = "DELETE FROM tasks WHERE id = ?";
-
+        Task task = getTask(id);
         try(Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, String.valueOf(id));
             statement.execute();
-            System.out.println("Task with id " + id + " deleted successfully");
         } catch(SQLException e) {
             e.printStackTrace();
         }
+        return task;
     }
 
     public Task getTask(int taskID) {
@@ -128,11 +127,9 @@ public class DBHelper {
                 LocalDate dueDate = LocalDate.parse(resultSet.getString("dueDate"));
                 String priority = resultSet.getString("priority");
 
-
                 Task task = new Task(title, description, dueDate, priority);
                 task.setId(id);
                 tasks.add(task);
-                System.out.println(LocalDate.now().plusDays(1));
             }
         } catch(SQLException e) {
             e.printStackTrace();
