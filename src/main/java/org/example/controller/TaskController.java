@@ -51,6 +51,7 @@ public class TaskController {
 
     public void getAll(SortStrategy sort) {
         List<Task> tasks = TaskService.getAllTasks();
-        TaskView.displayTasks(tasks);
+        List<Task> sortedTasks = sort.sort(tasks);
+        TaskView.displayTasks(sortedTasks);
     }
 }
