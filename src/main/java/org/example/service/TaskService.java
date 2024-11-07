@@ -12,9 +12,13 @@ public class TaskService {
     private static DBHelper dbHelper;
     private static TaskFactory taskFactory;
 
-    public TaskService() throws SQLException {
-        this.dbHelper = DBHelper.getInstance();
-        this.taskFactory = new TaskFactory();
+    static {
+        try {
+            dbHelper = DBHelper.getInstance();
+            taskFactory = new TaskFactory();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static Task createTask(String title, String description, String dueDate, String priority) {
